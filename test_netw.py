@@ -12,12 +12,14 @@ if ip_dns == '1.1.1.1' : nombre_dns = 'CloudFlare'
 elif ip_dns == '8.8.8.8' : nombre_dns = 'Google'
 elif ip_dns == '94.140.14.14' : nombre_dns = 'AdGuard'
 
+#la siguiente funcion me permite limpiar la pantalla de la terminal
 def limpiar_pantalla():
     if platform.system().lower() == 'windows':
         os.system('cls')
     else:
         os.system('clear')
 
+#la siguiente funcion me permite hacer ping a la direccion IP del host 1
 def ping_host_1():
     try:
         if platform.system().lower() == 'windows':
@@ -41,6 +43,7 @@ def ping_host_1():
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
+#la siguiente funcion me permite hacer ping a la direccion IP del host 2
 def ping_host_2():
     try:
         if platform.system().lower() == 'windows':
@@ -63,6 +66,7 @@ def ping_host_2():
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
+#la siguiente funcion me permite hacer ping a la direccion IP del DNS
 def ping_dns():
     try:
         if platform.system().lower() == "windows":
@@ -85,6 +89,7 @@ def ping_dns():
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
+#la siguiente funcion me permite trazar la ruta hacia la direccion IP del DNS
 def tracert_dns():
     try:
         comando = ['tracert', ip_dns] if subprocess.os.name == 'nt' else ['traceroute', ip_dns]
@@ -97,6 +102,7 @@ def tracert_dns():
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
+#la siguiente funcion me permite ejecutar un diagnostico automatico
 def diag_auto():
     print(f'Verificando conexión con el host {ip_host1}')
     ping_host_1()
@@ -105,6 +111,7 @@ def diag_auto():
     print(f'Verificando conexión con {nombre_dns}')
     ping_dns()
 
+#la siguiente funcion me permite mostrar un menu con las opciones disponibles
 def menu():
     while True:
         print(f'1: Verificar conexión a internet')
