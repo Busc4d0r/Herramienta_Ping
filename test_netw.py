@@ -125,7 +125,7 @@ def menu():
 
 
         if opcion == 1:
-            print(f'Verificando conexión a intenet...\n')
+            print(f'Verificando conexión a internet...\n')
             ping_dns()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
