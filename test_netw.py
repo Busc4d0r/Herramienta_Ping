@@ -162,5 +162,3 @@ def menu():
 
 #inicio el programa
 menu()
-
-#este comentario es para probar los cambios de la rama main a la rama test
