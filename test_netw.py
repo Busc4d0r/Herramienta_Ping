@@ -162,5 +162,3 @@ def menu():
 
 #inicio el programa
 menu()
-
-#fin del programa, comentario para probar el commit
