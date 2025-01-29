@@ -4,7 +4,6 @@ import os
 
 #guardo las direcciones que necesito consultar
 ip_host1 = '192.168.1.1' #IP de DMP
-ip_host2 = '192.168.199.1' #IP del hEX
 ip_dns = '94.140.14.14' #IP del DNS
 
 #con este codigo obtengo el nombre del DNS a partir de su direccion IP
@@ -34,35 +33,15 @@ def ping_host_1():
             text=True
         )
         if resultado.returncode == 0:
-            print(f'    Ping exitoso, hay conexión con el host\n')
+            print('    Ping exitoso, hay conexión con el host')
             #print(resultado.stdout)
         else:
-            print(f'    No se pudo hacer ping al host\n')
+            print('    No se pudo hacer ping al host\n')
+            print('Consideraciones:')
+            print('    - Verifica el cable de red en la computadora')
+            print('    - Verifica si los equipos en el rack están encendidos')
             #print(resultado.stderr)
 
-    except Exception as e:
-        print(f'Ocurrió un error: {e}')
-
-#la siguiente funcion me permite hacer ping a la direccion IP del host 2
-def ping_host_2():
-    try:
-        if platform.system().lower() == 'windows':
-            comando = ['ping','-n','4',ip_host2]
-        else:
-            comando = ['ping','-c','4',ip_host2]
-
-        resultado = subprocess.run(
-            comando,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
-        if resultado.returncode == 0:
-            print(f'    Ping exitoso, hay conexión con el host\n')
-            #print(resultado.stdout)
-        else:
-            print(f'    No se pudo hacer ping al host\n')
-            #print(resultado.stderr)
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
@@ -106,26 +85,23 @@ def tracert_dns():
 def diag_auto():
     print(f'Verificando conexión con el host {ip_host1}')
     ping_host_1()
-    print(f'Verificando conexión con el host {ip_host2}')
-    ping_host_2()
     print(f'Verificando conexión con {nombre_dns}')
     ping_dns()
 
 #la siguiente funcion me permite mostrar un menu con las opciones disponibles
 def menu():
     while True:
-        print(f'1: Verificar conexión a internet')
+        print('1: Verificar conexión a internet')
         print(f'2: Trazar ruta hacia {nombre_dns}')
-        print(f'3: Diagnóstico automático')
+        print('3: Diagnóstico automático')
         print(f'4: Verificar conexion con el host {ip_host1}')
-        print(f'5: Verificar conexión con el host {ip_host2}')
-        print(f'0: Salir\n')
-        opcion = int(input(f'Ingrese el número de la acción correspondiente: '))
+        print('0: Salir\n')
+        opcion = int(input('Ingrese el número de la acción correspondiente: '))
         limpiar_pantalla()
 
 
         if opcion == 1:
-            print(f'Verificando conexión a internet...\n')
+            print('Verificando conexión a internet...\n')
             ping_dns()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
@@ -137,7 +113,7 @@ def menu():
             limpiar_pantalla()
 
         elif opcion == 3:
-            print(f'Ejecutando diagnóstico automático...\n')
+            print('Ejecutando diagnóstico automático...\n')
             diag_auto()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
@@ -148,17 +124,11 @@ def menu():
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
 
-        elif opcion == 5:
-            print(f'Verificando conexión con el host {ip_host2}\n')
-            ping_host_2()
-            input('Presione Enter para volver al menú ')
-            limpiar_pantalla()
-
         elif opcion == 0:
             break
 
         else:
-            print(f'La opción no es válida')
+            print('La opción no es válida')
 
 #inicio el programa
 menu()
