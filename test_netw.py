@@ -1,6 +1,7 @@
 import subprocess
 import platform
 import os
+import speedtest
 
 #guardo las direcciones que necesito consultar
 ip_host1 = '192.168.1.1' #IP de DMP
@@ -81,6 +82,21 @@ def tracert_dns():
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
+# la siguiente función me permite testear la velocidad de conexión
+def test_speed():
+    try:
+        st = speedtest.Speedtest()
+        st.download()
+        st.upload()
+        st.results.share()
+        results = st.results.dict()
+        
+        print(f"    Velocidad de descarga: {results['download'] / 1_000_000:.2f} Mbps")
+        print(f"    Velocidad de subida: {results['upload'] / 1_000_000:.2f} Mbps")
+        print(f"    Ping: {results['ping']} ms")
+    except Exception as e:
+        print(f"Ocurrió un error al testear la velocidad de conexión: {e}")
+
 #la siguiente funcion me permite ejecutar un diagnostico automatico
 def diag_auto():
     print(f'Verificando conexión con el host {ip_host1}')
@@ -95,6 +111,7 @@ def menu():
         print(f'2: Trazar ruta hacia {nombre_dns}')
         print('3: Diagnóstico automático')
         print(f'4: Verificar conexion con el host {ip_host1}')
+        print('5: Testear velocidad de conexión')
         print('0: Salir\n')
         opcion = int(input('Ingrese el número de la acción correspondiente: '))
         limpiar_pantalla()
@@ -121,6 +138,12 @@ def menu():
         elif  opcion == 4:
             print(f'Verificando conexión con el host {ip_host1}\n')
             ping_host_1()
+            input('Presione Enter para volver al menú ')
+            limpiar_pantalla()
+
+        elif opcion == 5:
+            print('Testeando velocidad de conexión...\n')
+            test_speed()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
 
