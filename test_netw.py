@@ -3,21 +3,18 @@ import platform
 import os
 import speedtest
 
-#direcciones ip de los hosts a los que hay que consultar
 ip_dm='192.168.1.1'
 ip_hex='192.168.254.1'
 ip_prov1='192.168.101.1'
 ip_prov2='172.21.156.2'
 ip_dns='8.8.8.8'
 
-#la siguiente funcion me permite limpiar la pantalla de la terminal
 def limpiar_pantalla():
     if platform.system().lower() == 'windows':
         os.system('cls')
     else:
         os.system('clear')
 
-# la siguiente función me permite testear la velocidad de conexión
 def test_speed():
     try:
         st = speedtest.Speedtest()
@@ -32,7 +29,6 @@ def test_speed():
     except Exception as e:
         print(f"Ocurrió un error al testear la velocidad de conexión: {e}")
 
-#la siguiente funcion me permite trazar la ruta hacia la direccion IP del DNS
 def tracert_dns():
     try:
         comando = ['tracert', ip_dns] if subprocess.os.name == 'nt' else ['traceroute', ip_dns]
@@ -45,7 +41,6 @@ def tracert_dns():
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
-#la siguiente funcion me permite hacer ping a la direccion IP del DNS
 def ping_dns():
     try:
         if platform.system().lower() == "windows":
@@ -137,7 +132,6 @@ def ping_prov2():
     except Exception as e:
         print(f'Ocurrió un error: {e}')
 
-#la siguiente funcion me permite ejecutar un diagnostico automatico
 def diag_auto():
     print('verificando conexión con el router...')
     ping_dm()
@@ -148,49 +142,41 @@ def diag_auto():
     print('verificando conexión con el DNS...')
     ping_dns()
 
-#opciones avanzadas
 def opc_av():
     while True:
-        print('1: Verificar conexión con el switch')
-        print('2: Verificar conexión con el router Dream Machine')
-        print('3: Verificar conexión con Inter')
-        print('4: Verificar conexión con Fibex')
-        print('5: Verificar conexión con el DNS')
-        print('6: Trazar ruta hacia el DNS')
+        print('1: Verificar conexión con el router Dream Machine')
+        print('2: Verificar conexión con Inter')
+        print('3: Verificar conexión con Fibex')
+        print('4: Verificar conexión con el DNS')
+        print('5: Trazar ruta hacia el DNS')
         option=int(input('Ingrese el número de la acción correspondiente: '))
         limpiar_pantalla()
 
         if option == 1:
-            print('Verificando conexión con el switch...\n')
-            ping_switch()
-            input('Presione Enter para volver al menú ')
-            limpiar_pantalla()
-
-        elif option == 2:
             print('Verificando conexión con el router Dream Machine...\n')
             ping_dm()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
 
-        elif option == 3:
+        elif option == 2:
             print('Verificando conexión con Inter...\n')
             ping_prov1()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
 
-        elif option == 4:
+        elif option == 3:
             print('Verificando conexión con Fibex...\n')
             ping_prov2()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
 
-        elif option == 5:
+        elif option == 4:
             print('Verificando conexión con el DNS...\n')
             ping_dns()
             input('Presione Enter para volver al menú ')
             limpiar_pantalla()
 
-        elif option == 6:
+        elif option == 5:
             print('Trazando ruta hacia el DNS...\n')
             tracert_dns()
             input('Presione Enter para volver al menú ')
@@ -202,7 +188,6 @@ def opc_av():
         else:
             print('La opción no es válida')
 
-#la siguiente funcion me permite mostrar un menu con las opciones disponibles
 def menu():
     while True:
         print('1: Diagnóstico automático')
@@ -211,7 +196,6 @@ def menu():
         print('0: Salir\n')
         opcion = int(input('Ingrese el número de la acción correspondiente: '))
         limpiar_pantalla()
-
 
         if opcion == 1:
             print('Ejecutando diagnóstico automático...\n')
@@ -235,5 +219,4 @@ def menu():
         else:
             print('La opción no es válida')
 
-#inicio el programa
 menu()
